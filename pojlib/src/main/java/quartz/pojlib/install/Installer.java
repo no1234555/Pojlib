@@ -1,12 +1,12 @@
-package pojlib.install;
+package quartz.pojlib.install;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import pojlib.util.APIHandler;
-import pojlib.util.Constants;
-import pojlib.util.DownloadUtils;
-import pojlib.util.Logger;
+import quartz.pojlib.util.APIHandler;
+import quartz.pojlib.util.Constants;
+import quartz.pojlib.util.DownloadUtils;
+import quartz.pojlib.util.Logger;
 
 import java.io.File;
 import java.io.IOException;

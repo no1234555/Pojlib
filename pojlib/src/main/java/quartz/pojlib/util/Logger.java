@@ -1,4 +1,4 @@
-package pojlib.util;
+package quartz.pojlib.util;
 
 public enum Logger {
     INFO("[INFO]: "),

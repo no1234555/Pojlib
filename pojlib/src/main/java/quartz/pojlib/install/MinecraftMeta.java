@@ -1,8 +1,8 @@
-package pojlib.install;
+package quartz.pojlib.install;
 
 import com.google.gson.annotations.SerializedName;
-import pojlib.util.APIHandler;
-import pojlib.util.Constants;
+import quartz.pojlib.util.APIHandler;
+import quartz.pojlib.util.Constants;
 
 public class MinecraftMeta {
 

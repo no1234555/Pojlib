@@ -1,9 +1,9 @@
-package pojlib.account;
+package quartz.pojlib.account;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
-import pojlib.util.Constants;
+import quartz.pojlib.util.Constants;
 
 import java.io.IOException;
 import java.io.InputStream;

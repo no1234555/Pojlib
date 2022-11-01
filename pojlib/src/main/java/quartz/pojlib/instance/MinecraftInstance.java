@@ -1,9 +1,9 @@
-package pojlib.instance;
+package quartz.pojlib.instance;
 
-import pojlib.account.MinecraftAccount;
-import pojlib.install.*;
-import pojlib.util.GsonUtils;
-import pojlib.util.Logger;
+import quartz.pojlib.account.MinecraftAccount;
+import quartz.pojlib.install.*;
+import quartz.pojlib.util.GsonUtils;
+import quartz.pojlib.util.Logger;
 
 import java.io.File;
 import java.io.IOException;

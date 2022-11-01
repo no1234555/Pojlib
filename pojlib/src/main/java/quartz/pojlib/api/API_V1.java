@@ -1,9 +1,10 @@
-package pojlib.api;
+package quartz.pojlib.api;
 
 import org.json.JSONException;
-import pojlib.account.MinecraftAccount;
-import pojlib.install.*;
-import pojlib.instance.MinecraftInstance;
+import quartz.pojlib.account.MinecraftAccount;
+import quartz.pojlib.install.*;
+import quartz.pojlib.instance.MinecraftInstance;
+import quartz.pojlib.install.MinecraftMeta;
 
 import java.io.IOException;
 
