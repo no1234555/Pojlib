@@ -1,5 +1,9 @@
 package quartz.pojlib.instance;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import quartz.pojlib.account.MinecraftAccount;
 import quartz.pojlib.install.*;
 import quartz.pojlib.util.GsonUtils;
@@ -13,6 +17,7 @@ import java.util.List;
 
 public class MinecraftInstance {
 
+    public String instanceName;
     public String versionName;
     public String versionType;
     public String classpath;
@@ -27,8 +32,10 @@ public class MinecraftInstance {
         Logger.log(Logger.INFO, "Creating new instance: " + instanceName);
 
         MinecraftInstance instance = new MinecraftInstance();
+        instance.instanceName = instanceName;
         instance.versionName = minecraftVersion.id;
         instance.gameDir = new File(gameDir + "/instances/" + instanceName).getAbsolutePath();
+        new File(instance.gameDir).mkdirs();
 
         VersionInfo minecraftVersionInfo = MinecraftMeta.getVersionInfo(minecraftVersion);
         instance.versionType = minecraftVersionInfo.type;
@@ -71,17 +78,33 @@ public class MinecraftInstance {
         instance.assetIndex = minecraftVersionInfo.assetIndex.id;
 
         // Write instance to json file
-        GsonUtils.objectToJsonFile(instance.gameDir + "/instance.json", instance);
+        List<MinecraftInstance> instances = new ArrayList<>();
+        File instancesFile = new File(gameDir + "/instances/instances.json");
+
+        if (instancesFile.exists()) {
+            MinecraftInstance[] instancesFromFile = GsonUtils.jsonFileToObject(instancesFile.getAbsolutePath(), MinecraftInstance[].class);
+            if (instancesFromFile == null) throw new RuntimeException("Error saving instance: " + instanceName);
+            instances.addAll(Arrays.asList(instancesFromFile));
+        }
+
+        instances.add(instance);
+        GsonUtils.objectToJsonFile(instancesFile.getAbsolutePath(), instances);
         return instance;
     }
 
-    // Load an instance from json
-    public static MinecraftInstance load(String instanceName, String gameDir) {
-        return GsonUtils.jsonFileToObject(gameDir + "/instances/" + instanceName + "/instance.json", MinecraftInstance.class);
+    public static MinecraftInstance[] getInstances(String gameDir) {
+        return GsonUtils.jsonFileToObject(new File(gameDir + "/instances/instances.json").getAbsolutePath(), MinecraftInstance[].class);
     }
 
     // Return true if instance was deleted
     public static boolean delete(String instanceName, String gameDir) {
+        List<MinecraftInstance> instancesToSave = new ArrayList<>();
+
+        for (MinecraftInstance instance : getInstances(gameDir)) {
+            if (!instance.instanceName.equals(instanceName)) instancesToSave.add(instance);
+        }
+
+        GsonUtils.objectToJsonFile(new File(gameDir + "/instances/instances.json").getAbsolutePath(), instancesToSave);
         return new File(gameDir + "/instances/" + instanceName).delete();
     }
 

@@ -41,23 +41,44 @@ public class API_V1 {
     /**
      * Creates a new game instance with a selected mod loader. The latest version of the mod loader will be installed
      *
-     * @param instanceName     The name of the instance being created - can be anything, used for identification
-     * @param home             The base directory where minecraft should be setup
-     * @param minecraftVersion The version of minecraft to install
-     * @param modLoader        The type of mod loader to install
-     * @return A minecraft instance object
-     * @throws IOException Throws if download of library or asset fails
+     * @param instanceName      The name of the instance being created - can be anything, used for identification
+     * @param home              The base directory where minecraft should be setup
+     * @param minecraftVersion  The version of minecraft to install
+     * @param modLoader         The type of mod loader to install
+     * @return                  A minecraft instance object
+     * @throws                  IOException Throws if download of library or asset fails
      */
     public static MinecraftInstance createNewInstance(String instanceName, String home, MinecraftMeta.MinecraftVersion minecraftVersion, ModLoader modLoader) throws IOException {
         return MinecraftInstance.create(instanceName, home, minecraftVersion, modLoader.index);
     }
 
     /**
+     * Gets a list of all the created minecraftInstances
+     *
+     * @param home  The base directory where minecraft should be setup
+     * @return      A list of minecraft instances
+     */
+    public static MinecraftInstance[] getInstances(String home) {
+        return MinecraftInstance.getInstances(home);
+    }
+
+    /**
+     * Deletes a game instance given its name
+     *
+     * @param instanceName  The name of the instance being deleted
+     * @param home          The base directory where minecraft should be setup
+     * @return              True if the instances was successful removed
+     */
+    public static boolean deleteInstance(String instanceName, String home) {
+        return MinecraftInstance.delete(instanceName, home);
+    }
+
+    /**
      * Logs the user in and keeps them logged in unless they log out
      *
-     * @param home The base directory where minecraft should be setup
-     * @param authCode The token received from the microsoft login window
-     * @return A minecraft account object
+     * @param home      The base directory where minecraft should be setup
+     * @param authCode  The token received from the microsoft login window
+     * @return          A minecraft account object
      */
     public static MinecraftAccount login(String home, String authCode) throws IOException, JSONException {
         return MinecraftAccount.login(home, authCode);
@@ -66,8 +87,8 @@ public class API_V1 {
     /**
      * Fetches the account data from disk if the user has logged in before.
      *
-     * @param home The base directory where minecraft should be setup
-     * @return A minecraft account object, null if no account found
+     * @param home  The base directory where minecraft should be setup
+     * @return      A minecraft account object, null if no account found
      */
     public static MinecraftAccount fetchSavedLogin(String home) {
         return MinecraftAccount.load(home);
@@ -76,8 +97,8 @@ public class API_V1 {
     /**
      * Logs the user out
      *
-     * @param home The base directory where minecraft should be setup
-     * @return True if logout was successful
+     * @param home  The base directory where minecraft should be setup
+     * @return      True if logout was successful
      */
     public static boolean logout(String home) {
         return MinecraftAccount.logout(home);
