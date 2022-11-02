@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "Pojlib"
-include("lib")
+include("pojlib")

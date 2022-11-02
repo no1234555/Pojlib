@@ -1,4 +1,4 @@
-package pojlib.install;
+package quartz.pojlib.install;
 
 import com.google.gson.annotations.SerializedName;
 

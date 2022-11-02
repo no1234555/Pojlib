@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Implementation-Title: pojlib
+Implementation-Version: 0.1.0
+Export-Package: quartz.pojlib;version="0.1.0"

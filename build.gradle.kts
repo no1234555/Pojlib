@@ -7,5 +7,4 @@ plugins {
      * For more information, see
      * Applying external plugins with same version to subprojects.
      */
-
 }
