@@ -28,7 +28,7 @@ public class MinecraftInstance {
 
         MinecraftInstance instance = new MinecraftInstance();
         instance.versionName = minecraftVersion.id;
-        instance.gameDir = new File(gameDir).getAbsolutePath();
+        instance.gameDir = new File(gameDir + "/instances/" + instanceName).getAbsolutePath();
 
         VersionInfo minecraftVersionInfo = MinecraftMeta.getVersionInfo(minecraftVersion);
         instance.versionType = minecraftVersionInfo.type;
@@ -63,7 +63,6 @@ public class MinecraftInstance {
 
         // Install minecraft
         String clientClasspath = Installer.installClient(minecraftVersionInfo, gameDir);
-
         String minecraftClasspath = Installer.installLibraries(minecraftVersionInfo, gameDir);
         String modLoaderClasspath = Installer.installLibraries(modLoaderVersionInfo, gameDir);
         instance.classpath = clientClasspath + File.pathSeparator + minecraftClasspath + File.pathSeparator + modLoaderClasspath;
@@ -72,7 +71,7 @@ public class MinecraftInstance {
         instance.assetIndex = minecraftVersionInfo.assetIndex.id;
 
         // Write instance to json file
-        GsonUtils.objectToJsonFile(gameDir + "/instances/" + instanceName + "/instance.json", instance);
+        GsonUtils.objectToJsonFile(instance.gameDir + "/instance.json", instance);
         return instance;
     }
 
