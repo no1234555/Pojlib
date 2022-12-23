@@ -38,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: app-release
-          path: /home/runner/work/Pojlib/Pojlib/app-release/lib/build/outputs/aar
+          path: /home/runner/work/Pojlib/Pojlib/lib/build/outputs/aar
