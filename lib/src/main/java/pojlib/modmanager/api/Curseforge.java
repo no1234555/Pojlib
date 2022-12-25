@@ -3,11 +3,10 @@ package pojlib.modmanager.api;
 import android.os.Build;
 import com.google.gson.annotations.SerializedName;
 
-import net.kdt.pojavlaunch.Tools;
 import pojlib.modmanager.ModData;
 import pojlib.modmanager.ModManager;
-import net.kdt.pojavlaunch.utils.APIUtils;
-import net.kdt.pojavlaunch.utils.UiUitls;
+import pojlib.util.APIHandler;
+import pojlib.util.DownloadUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class Curseforge {
 
-    private static final APIUtils.APIHandler handler = new APIUtils.APIHandler("https://qcxr-modmanager-curseforge-api.herokuapp.com");
+    private static final APIHandler handler = new APIHandler("https://qcxr-modmanager-curseforge-api.herokuapp.com");
 
     public static class Project {
         @SerializedName("name")
@@ -75,14 +74,14 @@ public class Curseforge {
                 modData.fileData.id = String.valueOf(file.fileId);
                 modData.fileData.filename = file.filename;
                 //Work around for curse restricting mods outside CurseForge platform
-                modData.fileData.url = APIUtils.getCurseforgeJsonURL("https://qcxr-modmanager-curseforge-api.herokuapp.com" + "/getModDownloadURL/" + project.id + "/" + file.fileId);
+                modData.fileData.url = APIHandler.getCurseforgeJsonURL("https://qcxr-modmanager-curseforge-api.herokuapp.com" + "/getModDownloadURL/" + project.id + "/" + file.fileId);
                 return modData;
             }
         }
         return null;
     }
 
-    public static void addProjectsToRecycler(ModsFragment.ModAdapter adapter, String version, int offset, String query) {
+/*    public static void addProjectsToRecycler(String version, int offset, String query) {
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -108,7 +107,7 @@ public class Curseforge {
                     if (project.logo != null) modData.iconUrl = project.logo.thumbnailUrl;
                     else modData.iconUrl = "";
 
-                    for (ModData installedMod : ModManager.listInstalledMods("fabric-loader-" + Tools.getModJsonFabricLoaderVersion() + "-" + version)) {
+                    for (ModData installedMod : ModManager.listInstalledMods("fabric-loader-" + DownloadUtils.getModJsonFabricLoaderVersion() + "-" + version)) {
                         if (installedMod.isActive && String.valueOf(project.id).equals(installedMod.slug)) {
                             modData.isActive = true;
                             break;
@@ -131,17 +130,5 @@ public class Curseforge {
             }
         };
         thread.start();
-    }
-
-    public static void loadProjectPage(MarkdownView view, String id) {
-        view.loadMarkdown("", "file:///android_asset/ModDescription.css");
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                Description description = handler.get("getModDescription/" + id, Description.class);
-                if (description != null) UiUitls.runOnUI(() -> view.loadMarkdown(description.data, "file:///android_asset/ModDescription.css"));
-            }
-        };
-        thread.start();
-    }
+    }*/
 }
